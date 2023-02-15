@@ -305,6 +305,20 @@ fun BaseComposeActivity.TimetableItemDetailsDialog(
 								}
 							)
 
+							// Lesson unknowns
+							TimetableItemDetailsDialogElement(
+								elements = periodData.unknowns,
+								onElementClick = { dismiss(it) },
+								icon = {
+									Icon(
+										painter = painterResource(id = R.drawable.all_help),
+										contentDescription = stringResource(id = R.string.all_rooms),
+										tint = MaterialTheme.colorScheme.onSurface,
+										modifier = Modifier.padding(start = 8.dp)
+									)
+								}
+							)
+
 							// Lesson info texts
 							setOf(
 								periodData.element.text.lesson,
@@ -741,7 +755,7 @@ private fun TimetableDatabaseInterface.TimetableItemDetailsDialogElement(
 				) {
 					elements.forEach { element ->
 						Text(
-							text = if (useLongName) getLongName(element) else getShortName(element),
+							text = (if (useLongName) getLongName(element) else getShortName(element)) + " (${element.type})",
 							modifier = Modifier
 								.clip(RoundedCornerShape(50))
 								.clickable {

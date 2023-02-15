@@ -19,6 +19,7 @@ class PeriodData(
 	val teachers = HashSet<PeriodElement>()
 	val subjects = HashSet<PeriodElement>()
 	val rooms = HashSet<PeriodElement>()
+	val unknowns = HashSet<PeriodElement>()
 
 	var forceIrregular = false
 
@@ -35,6 +36,7 @@ class PeriodData(
 				TimetableDatabaseInterface.Type.TEACHER.name -> addTeacher(element)
 				TimetableDatabaseInterface.Type.SUBJECT.name -> addSubject(element)
 				TimetableDatabaseInterface.Type.ROOM.name -> addRoom(element)
+				else -> addUnknown(element)
 			}
 		}
 	}
@@ -46,6 +48,8 @@ class PeriodData(
 	private fun addSubject(element: PeriodElement) = subjects.add(element)
 
 	private fun addRoom(element: PeriodElement) = rooms.add(element)
+
+	private fun addUnknown(element: PeriodElement) = unknowns.add(element)
 
 	fun setup() = parseElements()
 
